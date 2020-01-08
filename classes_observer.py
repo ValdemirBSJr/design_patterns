@@ -11,16 +11,37 @@ outro em soup
 exemplo abstrato
 '''
 
+class FalaAdapter:
+    def __init__(self, ser, *, falar):
+        self.ser = ser
+        metodo_de_fala = getattr(self.ser, falar)
+        self.__setattr__('falar', metodo_de_fala)
+
 class Bruxo:
-    def bruxeis(self):
-        print('The dead are coming')
+    def __init__(self, bruxo):
+        self.bruxo = bruxo
+
+    def falar(self):
+        self.bruxo.bruxeis()
 
 class Genio:
-    def genieis(self):
-        print('Los muertos vuelven')
+    def __init__(self, genio):
+        self.genio = genio
+
+    def falar(self):
+        self.genio.geneis()
 
 class Deus:
-    def deuseis(self):
-        print('Do doden komen')
+    def __init__(self, deus):
+        self.deus = deus
+
+    def falar(self):
+        self.deus.deuseis()
+
+
+seres = [FalaAdapter(Bruxo(), falar='bruxeis'), FalaAdapter(Genio(), falar='geneis'), FalaAdapter(Deus(), falar='deuseis')]
+
+for adapter in seres:
+    adapter.falar()
 
 
